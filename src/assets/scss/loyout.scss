@@ -1,0 +1,33 @@
+.header{
+    background-color: white;
+    padding: 0 24px;
+}
+
+.content{
+    padding: 24px 50px;
+}
+
+.sider{
+    flex:0 0 300px !important;
+    max-width: 400px !important;
+    width: 100% !important;
+    text-align: center;
+    background-color: rgb(100, 100, 100);
+    color: white;
+}
+
+.footer{
+    text-align: center;
+}
+
+.layout-outside-container{
+    height: 100vh;
+}
+
+.layout-inside-container{
+    padding: 24px 150px;
+}
+
+.header-nav{
+    text-align: end;
+}

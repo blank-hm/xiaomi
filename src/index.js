@@ -1,13 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import {HashRouter as Router, Switch, Route, Redirect} from "react-router-dom"
 import App from './App';
+import { mainRoutes } from './routers/index';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Router>
+    <Switch>
+      <Route path="/pages" render={routerProps=><App {...routerProps} />} />
+      {
+        mainRoutes.map(route => {
+          return <Route key={route.path} {...route} />
+        })
+      }
+      <Redirect to="/pages/home" />
+    </Switch>
+  </Router>,
   document.getElementById('root')
 );
 
