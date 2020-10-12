@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Layout, Row, Col, Menu } from 'antd';
-import { HomeFilled } from '@ant-design/icons'
+import { HomeFilled } from '@ant-design/icons';
+import { withRouter } from "react-router-dom";
+import { mainRoutes } from '../../routers';
+const routes = mainRoutes.filter(route => { return route.isShow });
+
 const { Header, Footer, Sider, Content } = Layout;
 
-const { SubMenu } = Menu;
 
 class Index extends Component {
     constructor(props) {
@@ -15,25 +18,29 @@ class Index extends Component {
                 <Header className="header">
                     <Row>
                         <Col flex="100px">
-                            Blank
+                            <a onClick={() => { this.props.history.push("/pages/home") }}> Blank </a>
                         </Col>
                         <Col flex="auto">
                             <Menu mode="horizontal" className="header-nav">
-                                <Menu.Item icon={<HomeFilled />}>
-                                    Blank
-                                </Menu.Item>
-                                <Menu.Item>
-                                    Bl
-                                </Menu.Item>
+                                {routes.map(route => {
+                                    return <Menu.Item key={route.path} onClick={p => { this.props.history.push(p.key) }}>
+                                        {route.icon}
+                                        {route.title}
+                                    </Menu.Item>
+                                })}
                             </Menu>
                         </Col>
                     </Row>
                 </Header>
                 <Layout className="layout-inside-container">
+
                     <Content className="content">
                         {this.props.children}
                     </Content>
+
                     <Sider className="sider">Sider</Sider>
+
+
                 </Layout>
                 <Footer className="footer">Footer</Footer>
             </Layout>
@@ -41,4 +48,4 @@ class Index extends Component {
     }
 }
 
-export default Index;
+export default withRouter(Index);
