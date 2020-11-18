@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Layout, Row, Col, Menu } from 'antd';
-import { HomeFilled } from '@ant-design/icons';
+import { Row, Col, Menu, Layout } from 'antd';
 import { withRouter } from "react-router-dom";
 import { mainRoutes } from '../../routers';
+const { Footer, Content } = Layout;
 const routes = mainRoutes.filter(route => { return route.isShow });
-
-const { Header, Footer, Sider, Content } = Layout;
 
 
 class Index extends Component {
@@ -15,35 +13,42 @@ class Index extends Component {
     render() {
         return (
             <Layout className="layout-outside-container">
-                <Header className="header">
-                    <Row>
-                        <Col flex="100px">
-                            <a onClick={() => { this.props.history.push("/pages/home") }}> Blank </a>
-                        </Col>
-                        <Col flex="auto">
-                            <Menu mode="horizontal" className="header-nav">
-                                {routes.map(route => {
-                                    return <Menu.Item key={route.path} onClick={p => { this.props.history.push(p.key) }}>
-                                        {route.icon}
-                                        {route.title}
-                                    </Menu.Item>
-                                })}
-                            </Menu>
-                        </Col>
-                    </Row>
-                </Header>
-                <Layout className="layout-inside-container">
 
-                    <Content className="content">
-                        {this.props.children}
-                    </Content>
+                <Row className="header">
+                    <Col flex="0 1 100px" className="d-flex justify-content-center align-items-center" >
+                        
+                        <a onClick={() => { this.props.history.push("/pages/home") }}> Blank </a>
+                    </Col>
+                    <Col flex="auto" className="header-col">
+                        <Menu
+                            mode="horizontal"
+                            className="header-nav"
+                        // inlineCollapsed={true}
+                        // inlineIndent={48}
+                        >
+                            {routes.map(route => {
+                                return <Menu.Item
+                                    className="menu-item"
+                                    key={route.path}
+                                    onClick={p => { this.props.history.push(p.key) }}>
+                                    {route.icon}
+                                    {route.title}
+                                </Menu.Item>
+                            })}
+                        </Menu>
+                    </Col>
+                </Row>
 
-                    <Sider className="sider">Sider</Sider>
-
-
-                </Layout>
-                <Footer className="footer">Footer</Footer>
+                <Content>
+                    {this.props.children}
+                </Content>
+                <Footer
+                className="d-flex justify-content-center align-items-center"
+                >
+                    Footer
+                </Footer>
             </Layout>
+
         );
     }
 }

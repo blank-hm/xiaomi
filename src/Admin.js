@@ -2,18 +2,19 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
-import { mainRoutes } from './routers';
-import Frame from './components/Frame/index';
+import { mainRoutes, adminRoutes } from './routers';
+import AdminFrame from "./components/AdminFrame"
 import 'react-quill/dist/quill.snow.css';
 import store from './store/index'
+const routes = adminRoutes.filter(route => { return !route.isLogin });
 
-function App() {
+function Admin() {
   return (
     <Provider store={store}>
-      <Frame>
+      <AdminFrame>
         <Switch>
           {
-            mainRoutes.map(route => {
+            routes.map(route => {
               return (
                 <Route
                   key={route.path}
@@ -28,12 +29,12 @@ function App() {
           }
           <Redirect to="/404" />
         </Switch>
-      </Frame>
+      </AdminFrame>
     </Provider>
   )
 
 }
 
-export default App;
+export default Admin;
 
 
